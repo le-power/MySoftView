@@ -69,113 +69,234 @@
         tools:listitem="@layout/message_bubble_other" />
 
 
-    <LinearLayout
-        android:id="@+id/message_holder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorSurface"
-            android:elevation="@dimen/spacing_micro"
-            android:padding="@dimen/spacing_small">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_micro"
-                android:layout_weight="1">
-
-                <EditText
-                    android:id="@+id/message_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/message_hint" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageButton
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:padding="@dimen/spacing_medium"
-                app:srcCompat="@drawable/ic_send"
-                app:tint="?attr/colorPrimary" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <Button
-                android:id="@+id/imageBtn"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="图片"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-
-            <Button
-                android:id="@+id/emojiBtn"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="表情"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/videoBtn"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="语音"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/moreBtn"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="更多"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-    </LinearLayout>
-
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/message_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorSurface"
+                android:elevation="@dimen/spacing_micro"
+                android:padding="@dimen/spacing_small">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_micro"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/message_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/message_hint" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageButton
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/spacing_medium"
+                    app:srcCompat="@drawable/ic_send"
+                    app:tint="?attr/colorPrimary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <Button
+                    android:id="@+id/imageBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="图片"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+
+                <Button
+                    android:id="@+id/emojiBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="表情"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/videoBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="语音"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/moreBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="更多"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/gif_edit_container"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@mipmap/demo_image"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+            <EditText
+                android:id="@+id/gif_search_edit"
+                android:layout_width="match_parent"
+                android:background="#9f333333"
+                android:layout_height="30dp"/>
+
+            <LinearLayout
+                android:id="@+id/bottom_menu_container_top"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/gif_btn_top"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@color/purple_500"
+                    android:gravity="center"
+                    android:text="Gif"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/emoji0_top"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@color/purple_500"
+                    android:gravity="center"
+                    android:text="emoji0"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/emoji1_top"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@color/purple_500"
+                    android:gravity="center"
+                    android:text="emoji1"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomcontainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_200"
-        android:visibility="gone" >
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageview"
-            android:src="@mipmap/demo_image"
-            android:scaleType="matrix"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@color/purple_200"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="visible" >
 
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/demo_image" />
+        </RelativeLayout>
 
-    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/bottom_menu_container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="visible"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/gif_btn"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@color/purple_500"
+                android:gravity="center"
+                android:text="Gif"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/emoji0"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@color/purple_500"
+                android:gravity="center"
+                android:text="emoji0"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/emoji1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@color/purple_500"
+                android:gravity="center"
+                android:text="emoji1"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.justalk.kids.mysoftview.InsetsAnimationLinearLayout>

@@ -16,10 +16,12 @@
 
 package com.justalk.kids.mysoftview
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsAnimationCompat
@@ -27,7 +29,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.justalk.kids.mysoftview.databinding.FragmentConversationBinding
-import kotlin.math.E
 import kotlin.math.abs
 
 
@@ -35,13 +36,13 @@ import kotlin.math.abs
  * The main entry point for the sample. See [onViewCreated] for more information on how
  * the sample works.
  */
-class ConversationFragment : Fragment(),FragmentBackHandler  {
+class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListener {
     private var _binding: FragmentConversationBinding? = null
     private val binding: FragmentConversationBinding get() = _binding!!
     lateinit var emotionKeyboard: EmotionKeyboard
     var softViewSizeToolViewCallback: TranslateDeferringInsetsAnimationCallback? = null
     var softViewSize = 0f
-//    var isProgress = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -122,6 +123,26 @@ class ConversationFragment : Fragment(),FragmentBackHandler  {
             softViewSizeToolViewCallback
         )
 
+        //gif底部框的切换注册
+        //1)底部切换框
+//        ViewCompat.setWindowInsetsAnimationCallback(
+//            binding.bottomMenuContainer,
+//            TranslateDeferringInsetsAnimationCallback(
+//                view = binding.bottomMenuContainer,
+//                persistentInsetTypes = WindowInsetsCompat.Type.systemBars(),
+//                deferredInsetTypes = WindowInsetsCompat.Type.ime(),
+//            )
+//        )
+        //2)顶部输入搜索框
+        ViewCompat.setWindowInsetsAnimationCallback(
+            binding.gifEditContainer,
+            TranslateDeferringInsetsAnimationCallback(
+                view = binding.gifEditContainer,
+                persistentInsetTypes = WindowInsetsCompat.Type.systemBars(),
+                deferredInsetTypes = WindowInsetsCompat.Type.ime(),
+            )
+        )
+
         /**
          * 2.5) We also want to make sure that our EditText is focused once the IME
          * is animated in, to enable it to accept input. Similarly, if the IME is animated
@@ -180,9 +201,6 @@ class ConversationFragment : Fragment(),FragmentBackHandler  {
                     return
                 }
 
-//                if (isProgress){  //在滑动过程中不允许点击
-//                    return
-//                }
                 val currentTimeMillis = System.currentTimeMillis()
                 //加一个最小点击时间间隔
                 if (currentTimeMillis - EmotionKeyboard.tempCurrentTimeMillis < 500) {
@@ -215,7 +233,8 @@ class ConversationFragment : Fragment(),FragmentBackHandler  {
                 softViewSize = (diff.top - diff.bottom).toFloat()
                 val tempSoftSize = abs(softViewSize).toInt()
 
-                EmotionKeyboard.startSoft = tempSoftSize != 0 && tempSoftSize != emotionKeyboard.keyBoardHeight
+                EmotionKeyboard.startSoft =
+                    tempSoftSize != 0 && tempSoftSize != emotionKeyboard.keyBoardHeight
                 println("softViewSize=" + softViewSize)
             }
 
@@ -229,31 +248,24 @@ class ConversationFragment : Fragment(),FragmentBackHandler  {
                 performCallBack(true)
                 EmotionKeyboard.startSoft = false
 
-//                if (softViewSize == 0f && EmotionKeyboard.softFlag){
-//                    binding.messageEdittext.postDelayed(object : Runnable{
-//                        override fun run() {
-//                            println("软键盘启动失败,重新启动")
-////                            binding.messageEdittext.requestFocus()
-//                            emotionKeyboard.handlerClickEvent(true)
-//                        }
-//                    },100)
-//                }
-//                EmotionKeyboard.softFlag = false
 
+                if (abs(softViewSize).toInt() == emotionKeyboard.keyBoardHeight){
+                    if (binding.gifEditContainer.isShown){
+                        binding.gifSearchEdit.requestFocus()
+                        println("获取焦点")
+                    }
+                }
             }
         })
 
 
         binding.layoutRoot.setTouchCallBack(object : TranslateTouchStateCallBack {
             override fun onNestedPreScroll() {
-                if (!EmotionKeyboard.callbackFlag){ //未注册件监听就注册
-//                    System.out.println("onNestedPreScroll 调用注册")
-//                    performCallBack(true)
-                }
+
             }
 
             override fun onNestedScroll() {
-//                isProgress = true
+
             }
 
             override fun onNestedFling() {
@@ -261,12 +273,32 @@ class ConversationFragment : Fragment(),FragmentBackHandler  {
             }
 
             override fun onStopNestedScroll(target: View?, type: Int) {
-//                isProgress = false
+
             }
         })
 
+
+        //以下为gif按钮点击处理
+        binding.gifBtn.setOnClickListener(this)
+        binding.gifBtnTop.setOnClickListener(this)
+        binding.emoji0.setOnClickListener(this)
+        binding.emoji0Top.setOnClickListener(this)
+
+
     }
 
+    override fun onClick(p0: View?) {
+        when (p0?.id) {
+            R.id.gif_btn,R.id.gif_btn_top -> {
+                handleGifClickEvent()
+            }
+
+            R.id.emoji0, R.id.emoji0_top -> {
+                resetGifView()
+            }
+
+        }
+    }
 
     private fun hideEmotionLayout() {
         binding.bottomcontainer.setVisibility(View.GONE)
@@ -301,6 +333,18 @@ class ConversationFragment : Fragment(),FragmentBackHandler  {
                     deferredInsetTypes = WindowInsetsCompat.Type.ime(),
                 )
             )
+
+            ViewCompat.setWindowInsetsAnimationCallback(
+                binding.gifEditContainer,
+                TranslateDeferringInsetsAnimationCallback(
+                    view = binding.gifEditContainer,
+                    persistentInsetTypes = WindowInsetsCompat.Type.systemBars(),
+                    deferredInsetTypes = WindowInsetsCompat.Type.ime(),
+                    // We explicitly allow dispatch to continue down to binding.messageHolder's
+                    // child views, so that step 2.5 below receives the call
+                    dispatchMode = WindowInsetsAnimationCompat.Callback.DISPATCH_MODE_CONTINUE_ON_SUBTREE,
+                )
+            )
         } else {
             System.out.println("取消监听----")
             ViewCompat.setWindowInsetsAnimationCallback(
@@ -309,6 +353,11 @@ class ConversationFragment : Fragment(),FragmentBackHandler  {
             )
             ViewCompat.setWindowInsetsAnimationCallback(
                 binding.conversationRecyclerview,
+                null
+            )
+
+            ViewCompat.setWindowInsetsAnimationCallback(
+                binding.gifEditContainer,
                 null
             )
         }
@@ -335,10 +384,8 @@ class ConversationFragment : Fragment(),FragmentBackHandler  {
     }
 
     override fun onBackPressed(): Boolean {
-        System.out.println("EmotionKeyboard.bottomContainerShowFlag=" + EmotionKeyboard.bottomContainerShowFlag)
-        if (EmotionKeyboard.bottomContainerShowFlag){ //底部显示出来
-            System.out.println("EmotionKeyboard.startAnimation=" + EmotionKeyboard.startAnimation)
-            if (EmotionKeyboard.startAnimation){ //底部消失动画正在进行
+        if (EmotionKeyboard.bottomContainerShowFlag) { //底部显示出来
+            if (EmotionKeyboard.startAnimation) { //底部消失动画正在进行
                 return false
             }
             performCallBack(true)
@@ -348,6 +395,38 @@ class ConversationFragment : Fragment(),FragmentBackHandler  {
         }
         return false
     }
+
+
+    fun handleGifClickEvent() {
+        if (binding.gifSearchEdit.hasFocus() ){
+            println("已经有焦点了")
+            emotionKeyboard.showSoftInput(binding.gifSearchEdit)
+            return
+        }
+
+        performCallBack(false)
+        binding.messageHolder.visibility = View.INVISIBLE
+        binding.gifEditContainer.visibility = View.VISIBLE
+
+        //这个容器需要改变高度,重置以后恢复高度
+        emotionKeyboard.handlerClickEvent(true)
+    }
+
+    fun resetGifView() {
+        if (EmotionKeyboard.bottomContainerShowFlag){
+            println("已经处于底部显示状态")
+            return
+        }
+
+        performCallBack(false)
+        //这个容器需要改变高度,重置以后恢复高度
+        binding.messageHolder.visibility = View.VISIBLE
+
+        binding.gifEditContainer.visibility = View.INVISIBLE
+        emotionKeyboard.handlerClickEvent(true)
+        binding.gifSearchEdit.clearFocus()
+    }
+
 }
 
 

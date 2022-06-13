@@ -135,6 +135,8 @@ public class EmotionKeyboard {
         return this;
     }
 
+
+
     public EmotionKeyboard build() {//设置软件盘的模式：SOFT_INPUT_ADJUST_RESIZE  这个属性表示Activity的主窗口总是会被调整大小，从而保证软键盘显示空间。
         //从而方便我们计算软件盘的高度
         mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN |
@@ -161,7 +163,6 @@ public class EmotionKeyboard {
         hideSoftInput();
         mEmotionLayout.getLayoutParams().height = softInputHeight;
         mEmotionLayout.setVisibility(View.VISIBLE);
-
         startOpenAnimation();
     }
 
@@ -303,6 +304,30 @@ public class EmotionKeyboard {
             }
         });
     }
+
+    /**
+     * 编辑框获取焦点，并显示软件盘
+     */
+    public void showSoftInput(EditText editText) {
+        lockContentHeight();
+        editText.post(new Runnable() {
+            @Override
+            public void run() {
+//                startSoft = true;
+//                mInputManager.showSoftInput(mEditText, 0);
+                mInputManager.showSoftInput(editText,InputMethodManager.SHOW_FORCED);
+            }
+        });
+
+        editText.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ((LinearLayout.LayoutParams) mContentView.getLayoutParams()).weight = 1.0F;
+            }
+        }, 200L);
+
+    }
+
 
     /**
      * 隐藏软件盘
