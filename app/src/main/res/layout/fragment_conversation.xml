@@ -180,10 +180,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
 
+
             <EditText
                 android:id="@+id/gif_search_edit"
+                android:layout_margin="5dp"
                 android:layout_width="match_parent"
-                android:background="#9f333333"
+                android:background="#8333"
                 android:layout_height="30dp"/>
 
             <LinearLayout

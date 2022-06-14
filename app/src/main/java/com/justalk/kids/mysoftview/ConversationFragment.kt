@@ -123,17 +123,9 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
             softViewSizeToolViewCallback
         )
 
-        //gif底部框的切换注册
-        //1)底部切换框
-//        ViewCompat.setWindowInsetsAnimationCallback(
-//            binding.bottomMenuContainer,
-//            TranslateDeferringInsetsAnimationCallback(
-//                view = binding.bottomMenuContainer,
-//                persistentInsetTypes = WindowInsetsCompat.Type.systemBars(),
-//                deferredInsetTypes = WindowInsetsCompat.Type.ime(),
-//            )
-//        )
-        //2)顶部输入搜索框
+
+
+        //gif搜索框
         ViewCompat.setWindowInsetsAnimationCallback(
             binding.gifEditContainer,
             TranslateDeferringInsetsAnimationCallback(
@@ -235,7 +227,6 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
 
                 EmotionKeyboard.startSoft =
                     tempSoftSize != 0 && tempSoftSize != emotionKeyboard.keyBoardHeight
-                println("softViewSize=" + softViewSize)
             }
 
             override fun onEnd(animation: WindowInsetsAnimationCompat?) {
@@ -252,7 +243,6 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
                 if (abs(softViewSize).toInt() == emotionKeyboard.keyBoardHeight){
                     if (binding.gifEditContainer.isShown){
                         binding.gifSearchEdit.requestFocus()
-                        println("获取焦点")
                     }
                 }
             }
@@ -397,10 +387,14 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
     }
 
 
-    fun handleGifClickEvent() {
+    private fun handleGifClickEvent() {
         if (binding.gifSearchEdit.hasFocus() ){
-            println("已经有焦点了")
             emotionKeyboard.showSoftInput(binding.gifSearchEdit)
+            return
+        }
+
+        if (EmotionKeyboard.startAnimation || EmotionKeyboard.startSoft) {
+
             return
         }
 
@@ -412,9 +406,11 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
         emotionKeyboard.handlerClickEvent(true)
     }
 
-    fun resetGifView() {
+    private fun resetGifView() {
         if (EmotionKeyboard.bottomContainerShowFlag){
-            println("已经处于底部显示状态")
+            return
+        }
+        if (EmotionKeyboard.startAnimation || EmotionKeyboard.startSoft) {
             return
         }
 
