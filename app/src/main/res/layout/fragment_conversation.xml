@@ -14,7 +14,7 @@
   ~ limitations under the License.
 -->
 
-<com.justalk.kids.mysoftview.InsetsAnimationLinearLayout
+<com.justalk.kids.softlibrary.InsetsAnimationLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -301,4 +301,4 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.justalk.kids.mysoftview.InsetsAnimationLinearLayout>
+</com.justalk.kids.softlibrary.InsetsAnimationLinearLayout>

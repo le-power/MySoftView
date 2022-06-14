@@ -1,4 +1,4 @@
-package com.justalk.kids.mysoftview;
+package com.justalk.kids.softlibrary;
 
 import androidx.core.view.WindowInsetsAnimationCompat;
 import androidx.core.view.WindowInsetsCompat;

@@ -15,17 +15,12 @@
  */
 
 
-package com.justalk.kids.mysoftview
+package com.justalk.kids.softlibrary
 
-import android.app.Activity
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.core.graphics.Insets
 import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
-import com.justalk.kids.mysoftview.databinding.FragmentConversationBinding
-import java.util.stream.StreamSupport
 import kotlin.math.abs
 
 
@@ -109,7 +104,7 @@ class TranslateDeferringInsetsAnimationCallback(
     }
 
 
-    fun setTranslateDeferringStateCallBack(translateDeferringStateCallBack : TranslateDeferringStateCallBack){
+    fun setTranslateDeferringStateCallBack(translateDeferringStateCallBack : com.justalk.kids.softlibrary.TranslateDeferringStateCallBack){
         this.translateDeferringStateCallBack = translateDeferringStateCallBack
     }
 }

@@ -1,4 +1,4 @@
-package com.justalk.kids.mysoftview;
+package com.justalk.kids.softlibrary;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -76,24 +76,6 @@ public class EmotionKeyboard {
      */
     public EmotionKeyboard bindToEditText(EditText editText) {
         mEditText = editText;
-//        mEditText.requestFocus();
-//        mEditText.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_UP && mEmotionLayout.isShown()) {
-//                    lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
-//                    hideEmotionLayout(true);//隐藏表情布局，显示软件盘
-//                    //软件盘显示后，释放内容高度
-//                    mEditText.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            unlockContentHeightDelayed();
-//                        }
-//                    }, 200L);
-//                }
-//                return false;
-//            }
-//        });
         return this;
     }
 

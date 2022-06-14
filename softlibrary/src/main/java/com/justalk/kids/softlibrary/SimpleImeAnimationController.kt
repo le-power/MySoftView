@@ -17,7 +17,7 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
 
-package com.justalk.kids.mysoftview
+package com.justalk.kids.softlibrary
 import android.os.CancellationSignal
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -30,6 +30,7 @@ import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.dynamicanimation.animation.springAnimationOf
 import androidx.dynamicanimation.animation.withSpringForceProperties
+
 import kotlin.math.roundToInt
 
 /**
@@ -345,7 +346,6 @@ internal class SimpleImeAnimationController {
     ) {
         val controller = insetsAnimationController
             ?: throw IllegalStateException("Controller should not be null")
-
         currentSpringAnimation = springAnimationOf(
             setter = { insetTo(it.roundToInt()) },
             getter = { controller.currentInsets.bottom.toFloat() },

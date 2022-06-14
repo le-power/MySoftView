@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package com.justalk.kids.mysoftview
+package com.justalk.kids.softlibrary
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
 import android.view.View
-import android.view.WindowInsets
 import android.view.WindowInsetsAnimation
 import android.widget.LinearLayout
 import androidx.core.view.NestedScrollingParent3
 import androidx.core.view.NestedScrollingParentHelper
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.justalk.kids.mysoftview.suppressLayoutCompat
+import com.justalk.kids.softlibrary.TranslateTouchStateCallBack
 
 /**
  * A [LinearLayout] which acts as a [nested scroll parent][NestedScrollingParent3] to automatically
@@ -83,7 +82,7 @@ class InsetsAnimationLinearLayout @JvmOverloads constructor(
     var scrollImeOnScreenWhenNotVisible = true
 
     //滑动监听的回调
-    private var translateTouchStateCallBack :TranslateTouchStateCallBack? = null
+    private var translateTouchStateCallBack : TranslateTouchStateCallBack? = null
 
     override fun onStartNestedScroll(child: View, target: View, axes: Int, type: Int): Boolean {
         // We only want to track vertical scrolls, which are driven from a direct touch event.

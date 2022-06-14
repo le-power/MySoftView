@@ -1,4 +1,4 @@
-package com.justalk.kids.mysoftview;
+package com.justalk.kids.softlibrary;
 
 import android.view.View;
 

@@ -15,7 +15,7 @@
  */
 
 
-package com.justalk.kids.mysoftview
+package com.justalk.kids.softlibrary
 import android.graphics.Rect
 import android.view.MotionEvent
 import android.view.VelocityTracker
@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewConfiguration
 import android.view.WindowInsets.Type
 import androidx.core.view.ViewCompat
+import com.justalk.kids.mysoftview.copyBoundsInWindow
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 

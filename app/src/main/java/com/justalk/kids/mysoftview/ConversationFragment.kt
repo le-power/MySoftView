@@ -16,12 +16,10 @@
 
 package com.justalk.kids.mysoftview
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsAnimationCompat
@@ -29,6 +27,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.justalk.kids.mysoftview.databinding.FragmentConversationBinding
+import com.justalk.kids.softlibrary.*
 import kotlin.math.abs
 
 
@@ -207,7 +206,7 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
 
         //软键盘已经完全弹出
         softViewSizeToolViewCallback!!.setTranslateDeferringStateCallBack(object :
-            TranslateDeferringStateCallBack {
+            com.justalk.kids.softlibrary.TranslateDeferringStateCallBack {
             override fun onProgress(
                 insets: WindowInsetsCompat,
                 runningAnimations: MutableList<WindowInsetsAnimationCompat>
@@ -249,7 +248,8 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
         })
 
 
-        binding.layoutRoot.setTouchCallBack(object : TranslateTouchStateCallBack {
+        binding.layoutRoot.setTouchCallBack(object :
+            TranslateTouchStateCallBack {
             override fun onNestedPreScroll() {
 
             }
