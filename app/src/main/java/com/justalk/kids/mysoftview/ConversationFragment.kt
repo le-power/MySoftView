@@ -117,6 +117,7 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
             deferredInsetTypes = WindowInsetsCompat.Type.ime(),
         )
 
+        //不显示的view,用做计算软键盘高度
         ViewCompat.setWindowInsetsAnimationCallback(
             binding.softViewSizeToolView,
             softViewSizeToolViewCallback
@@ -186,8 +187,6 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
         binding.imageBtn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 // 还在播放动画, 软键盘正在弹出,不让点
-                System.out.println("EmotionKeyboard.startAnimation" + EmotionKeyboard.startAnimation)
-                System.out.println("EmotionKeyboard.startSoft" + EmotionKeyboard.startSoft)
                 if (EmotionKeyboard.startAnimation || EmotionKeyboard.startSoft) {
                     return
                 }
@@ -229,9 +228,6 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
             }
 
             override fun onEnd(animation: WindowInsetsAnimationCompat?) {
-                println("完成..EmotionKeyboard.startAnimation" + EmotionKeyboard.startAnimation)
-                println("完成..binding.bottomcontainer.isShown" + binding.bottomcontainer.isShown)
-                println("onEnd  softViewSize=$softViewSize")
 
                 //注册必须要有对应的事件,多出来的回调会导致布局错乱
                 binding.conversationRecyclerview.suppressLayout(false)
@@ -247,7 +243,7 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
             }
         })
 
-
+        //rootView 手势监听回调
         binding.layoutRoot.setTouchCallBack(object :
             TranslateTouchStateCallBack {
             override fun onNestedPreScroll() {
@@ -303,7 +299,6 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
     private fun performCallBack(clickFlag: Boolean) {
         EmotionKeyboard.callbackFlag = !clickFlag
         if (clickFlag) {
-            System.out.println("注册监听----")
             ViewCompat.setWindowInsetsAnimationCallback(
                 binding.messageHolder,
                 TranslateDeferringInsetsAnimationCallback(
@@ -336,7 +331,6 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
                 )
             )
         } else {
-            System.out.println("取消监听----")
             ViewCompat.setWindowInsetsAnimationCallback(
                 binding.messageHolder,
                 null
@@ -387,6 +381,10 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
     }
 
 
+    /**
+     * 点击GIF按钮:
+     * 显示gif,显示gif输入框以及搜索结果
+     */
     private fun handleGifClickEvent() {
         if (binding.gifSearchEdit.hasFocus() ){
             emotionKeyboard.showSoftInput(binding.gifSearchEdit)
@@ -394,7 +392,6 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
         }
 
         if (EmotionKeyboard.startAnimation || EmotionKeyboard.startSoft) {
-
             return
         }
 
@@ -402,10 +399,13 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
         binding.messageHolder.visibility = View.INVISIBLE
         binding.gifEditContainer.visibility = View.VISIBLE
 
-        //这个容器需要改变高度,重置以后恢复高度
         emotionKeyboard.handlerClickEvent(true)
     }
 
+    /**
+     * 点击其他按钮:
+     * 恢复显示gif之前的效果
+     */
     private fun resetGifView() {
         if (EmotionKeyboard.bottomContainerShowFlag){
             return
@@ -415,7 +415,6 @@ class ConversationFragment : Fragment(), FragmentBackHandler, View.OnClickListen
         }
 
         performCallBack(false)
-        //这个容器需要改变高度,重置以后恢复高度
         binding.messageHolder.visibility = View.VISIBLE
 
         binding.gifEditContainer.visibility = View.INVISIBLE

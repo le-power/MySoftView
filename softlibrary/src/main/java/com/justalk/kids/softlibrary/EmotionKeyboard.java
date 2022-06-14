@@ -280,8 +280,6 @@ public class EmotionKeyboard {
         mEditText.post(new Runnable() {
             @Override
             public void run() {
-//                startSoft = true;
-//                mInputManager.showSoftInput(mEditText, 0);
                 mInputManager.showSoftInput(mEditText,InputMethodManager.SHOW_FORCED);
             }
         });
@@ -295,8 +293,6 @@ public class EmotionKeyboard {
         editText.post(new Runnable() {
             @Override
             public void run() {
-//                startSoft = true;
-//                mInputManager.showSoftInput(mEditText, 0);
                 mInputManager.showSoftInput(editText,InputMethodManager.SHOW_FORCED);
             }
         });
@@ -315,7 +311,6 @@ public class EmotionKeyboard {
      * 隐藏软件盘
      */
     public void hideSoftInput() {
-        System.out.println("hideSoftInput");
         mInputManager.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
 //        mInputManager.hideSoftInputFromWindow(mEditText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
@@ -430,20 +425,17 @@ public class EmotionKeyboard {
         this.isClick = isClick;
         startAnimation = true;
         mContentView.suppressLayout(true);
-        if (mEmotionLayout.isShown()) {
-            System.out.println("隐藏底部布局111");
+        if (mEmotionLayout.isShown()) { //隐藏底部布局
             lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
             hideEmotionLayout(true);//隐藏表情布局，显示软件盘
             unlockContentHeightDelayed();//软件盘显示后，释放内容高度
         } else {
             mEditText.setEnabled(false);
-            if (isSoftInputShown()) {//同上
-                System.out.println("显示底部布局000");
+            if (isSoftInputShown()) {//同上 显示底部布局
                 lockContentHeight();
                 showEmotionLayout();
                 unlockContentHeightDelayed();
-            } else {
-                System.out.println("直接显示表情布局");
+            } else { //直接显示表情布局
 //                changeEmotionLayout(true);
                 changeEmotionLayoutByThread(true);
             }
